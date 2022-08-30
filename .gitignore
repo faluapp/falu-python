@@ -1,0 +1,42 @@
+# Basics
+*.py[cod]
+__pycache__
+
+# Logs
+*.log
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+shippable
+
+# Translations
+*.mo
+*.pot
+
+# Pycharm
+.idea
+
+# Vim
+*~
+*.swp
+*.swo
+
+# npm
+node_modules/
+
+# Campass
+.sass-cache
+
+# Local
+*.box
+.env
+.vagrant
+db.sqlite3
+local_settings.py
+staticfiles
+celerybeat-schedule
+results.db
+emails

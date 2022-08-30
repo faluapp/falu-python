@@ -12,7 +12,7 @@ setup(
     license='MIT',
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    install_requires=['mpi4py>=2.0', 'numpy', ],
+    install_requires=['', '', ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
