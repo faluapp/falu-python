@@ -58,7 +58,7 @@ class ApiClient(FaluModel):
         code = response.status_code
         resource = None
 
-        if response:
+        if response and response.content:
             resource = response.json()
 
         return self.deserialize_response(code, response.headers, resource)
