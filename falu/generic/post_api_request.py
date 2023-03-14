@@ -6,5 +6,5 @@ class CreateApiRequest(ApiClient):
     @classmethod
     def create(cls, path, data=None, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None,
                params=None):
-        cls._execute(method="POST", path=path, data=data, key=api_key, idempotency_key=idempotency_key,
-                     workspace=workspace, live=live, params=params)
+       return cls._execute(method="POST", path=path, data=data, key=api_key, idempotency_key=idempotency_key,
+                           workspace=workspace, live=live, params=params)
