@@ -41,7 +41,9 @@ class ApiClient(FaluModel):
 
         headers = {
             "Authorization": "Bearer %s" % api_key,
-            "X-Falu-Version": "2022-05-01"
+            "X-Falu-Version": "2022-09-01",
+            'Content-type': 'application/json',
+            'Accept': 'application/json'
         }
 
         if idempotency_key is not None:

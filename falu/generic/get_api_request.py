@@ -1,7 +1,7 @@
 from falu.client.api_client import ApiClient
 
 
-class DetailApiRequest(ApiClient):
+class GetApiRequest(ApiClient):
 
     @classmethod
     def get(cls, path, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None, params=None):

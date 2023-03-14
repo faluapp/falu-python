@@ -1,8 +1,8 @@
-from falu.generic.create_api_request import CreateApiRequest
-from falu.generic.detail_api_request import DetailApiRequest
+from falu.generic.post_api_request import PostApiRequest
+from falu.generic.get_api_request import GetApiRequest
 
 
-class Money(CreateApiRequest, DetailApiRequest):
+class Money(PostApiRequest, GetApiRequest):
 
     @classmethod
     def get_money_balance(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
