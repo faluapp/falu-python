@@ -14,3 +14,4 @@ from falu.services.payments import Payment
 from falu.services.transfer_reversals import TransferReversal
 from falu.services.transfers import Transfer
 from falu.services.webhook_endpoints import WebhookEndpoint
+from falu.services.customers import Customer

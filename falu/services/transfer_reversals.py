@@ -10,7 +10,7 @@ class TransferReversal(PostApiRequest, GetApiRequest):
     """
 
     @classmethod
-    def get_transfer_reversal(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def get_transfer_reversals(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
         """
         List transfer reversal
 
