@@ -12,6 +12,7 @@ from falu.services.messages import Messages
 from falu.services.money import Money
 from falu.services.payment_refunds import PaymentRefund
 from falu.services.payments import Payment
+from falu.services.terminal_configurations import TerminalConfiguration
 from falu.services.terminal_devices import TerminalDevice
 from falu.services.terminal_locations import TerminalLocation
 from falu.services.transfer_reversals import TransferReversal
