@@ -20,4 +20,6 @@ from falu.services.transfers import Transfer
 from falu.services.visitor_destinations import VisitorDestination
 from falu.services.visitors import Visitor
 from falu.services.visits import Visit
+from falu.services.wallet import Wallet
+from falu.services.wallet_transactions import WalletTransaction
 from falu.services.webhook_endpoints import WebhookEndpoint

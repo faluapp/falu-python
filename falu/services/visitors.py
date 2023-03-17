@@ -21,7 +21,7 @@ class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.get(
-            path="visits/visitors",
+            path="/visits/visitors",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -41,7 +41,7 @@ class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path="visits/visitors",
+            path="/visits/visitors",
             data=data,
             api_key=api_key,
             idempotency_key=idempotency_key,
@@ -62,7 +62,7 @@ class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.get(
-            path=f"visits/visitors/{visitor}",
+            path=f"/visits/visitors/{visitor}",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -98,7 +98,7 @@ class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.delete(
-            path=f"visits/visitors/{visitor}",
+            path=f"/visits/visitors/{visitor}",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -119,7 +119,7 @@ class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path=f"visits/visitors/{visitor}/redact",
+            path=f"/visits/visitors/{visitor}/redact",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

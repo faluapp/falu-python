@@ -21,7 +21,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.get(
-            path="visits/visits",
+            path="/visits/visits",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -41,7 +41,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path="visits/visits",
+            path="/visits/visits",
             data=data,
             api_key=api_key,
             idempotency_key=idempotency_key,
@@ -62,7 +62,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.get(
-            path=f"visits/visits/{visit}",
+            path=f"/visits/visits/{visit}",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -97,7 +97,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path=f"visits/visits/{visit}/start",
+            path=f"/visits/visits/{visit}/start",
             data=data,
             api_key=api_key,
             idempotency_key=idempotency_key,
@@ -119,7 +119,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path=f"visits/visits/{visit}/end",
+            path=f"/visits/visits/{visit}/end",
             data=data,
             api_key=api_key,
             idempotency_key=idempotency_key,
@@ -142,7 +142,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path=f"visits/visits/{visit}/redact",
+            path=f"/visits/visits/{visit}/redact",
             data=data,
             api_key=api_key,
             idempotency_key=idempotency_key,
