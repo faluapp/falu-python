@@ -1,0 +1,126 @@
+from falu.generic.delete_api_request import DeleteApiRequest
+from falu.generic.get_api_request import GetApiRequest
+from falu.generic.post_api_request import PostApiRequest
+
+
+class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
+    """
+    A Visitor represents an individual who visited the premises.
+    """
+
+    @classmethod
+    def get_visitors(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+        """
+        List visitor
+
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+
+        return cls.get(
+            path="visits/visitors",
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
+
+    @classmethod
+    def create_visitor(cls, data, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+        """
+        Create visitor
+
+        :param data:
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+
+        return cls.create(
+            path="visits/visitors",
+            data=data,
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
+
+    @classmethod
+    def get_visitor(cls, visitor, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+        """
+        Get terminal device
+
+        :param visitor:
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+
+        return cls.get(
+            path=f"visits/visitors/{visitor}",
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
+
+    @classmethod
+    def update_visitor(cls, visitor, api_key=None, idempotency_key: str = None, workspace=None,
+                       live: bool = None):
+        """
+        Update visitor
+
+        :param visitor:
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+        pass
+
+    @classmethod
+    def delete_visitor(cls, visitor, api_key=None, idempotency_key: str = None, workspace=None,
+                       live: bool = None):
+        """
+        Delete visitor
+
+        :param visitor:
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+
+        return cls.delete(
+            path=f"visits/visitors/{visitor}",
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
+
+    @classmethod
+    def redact_visitor(cls, visitor, api_key=None, idempotency_key: str = None, workspace=None,
+                       live: bool = None):
+        """
+        Redact visitor
+
+        :param visitor:
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+
+        return cls.create(
+            path=f"visits/visitors/{visitor}/redact",
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)

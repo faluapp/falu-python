@@ -17,4 +17,7 @@ from falu.services.terminal_devices import TerminalDevice
 from falu.services.terminal_locations import TerminalLocation
 from falu.services.transfer_reversals import TransferReversal
 from falu.services.transfers import Transfer
+from falu.services.visitor_destinations import VisitorDestination
+from falu.services.visitors import Visitor
+from falu.services.visits import Visit
 from falu.services.webhook_endpoints import WebhookEndpoint
