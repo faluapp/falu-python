@@ -6,3 +6,4 @@ from falu.services.message_suppressions import MessageSuppressions
 from falu.services.message_templates import MessageTemplates
 from falu.services.messages import Messages
 from falu.services.money import Money
+from falu.services.payments import Payment
