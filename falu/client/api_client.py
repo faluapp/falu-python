@@ -1,8 +1,10 @@
 import requests
 from requests import Response
 
+from falu.basic_list_options import BasicListOptions
 from falu.client.falu_model import FaluModel
 from falu.client.falu_model import deserialize_falu_response
+from falu.query_values import QueryValues
 
 
 class ApiClient(FaluModel):
@@ -11,13 +13,15 @@ class ApiClient(FaluModel):
         self.base_url = 'https://api.falu.io/v1'
 
     @classmethod
-    def _execute(cls, method, path, data=None, key=None, idempotency_key: str = None, workspace=None, live: bool = None,
-                 params=None):
+    def _execute(cls, method, path, data=None, options: BasicListOptions = None, key=None, idempotency_key: str = None,
+                 workspace=None, live: bool = None, params=None):
+        params = cls._generate_params(options, params)
         client = ApiClient()
         return client.execute(method, path, data, key, idempotency_key, workspace, live, params)
 
     def execute(self, method, path, data=None, key=None, idempotency_key: str = None, workspace=None, live: bool = None,
                 params=None):
+
         url = self._build_url(path)
         headers = self.build_headers(key=key, idempotency_key=idempotency_key, workspace=workspace, live=live)
 
@@ -26,6 +30,14 @@ class ApiClient(FaluModel):
 
     def _build_url(self, path):
         return "%s%s" % (self.base_url, path)
+
+    @staticmethod
+    def _generate_params(options: BasicListOptions = None, params=None):
+        args = QueryValues()
+        if options is not None:
+            options.populate(args)
+
+        return args.values.update(params)
 
     @staticmethod
     def build_headers(key=None, idempotency_key: str = None, workspace: str = None, live: bool = None):
