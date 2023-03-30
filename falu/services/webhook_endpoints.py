@@ -1,3 +1,4 @@
+from falu.basic_list_options import BasicListOptions
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
@@ -10,10 +11,12 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
     """
 
     @classmethod
-    def get_webhooks(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def get_webhooks(cls, options: BasicListOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
+                     live: bool = None):
         """
         List webhook endpoints
 
+        :param options:
         :param api_key:
         :param idempotency_key:
         :param workspace:
@@ -23,6 +26,7 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.get(
             path="/webhooks/endpoint",
+            options=options,
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

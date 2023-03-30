@@ -1,3 +1,4 @@
+from falu.basic_list_options import IdentityVerificationReportsListOptions
 from falu.generic.get_api_request import GetApiRequest
 
 
@@ -10,11 +11,12 @@ class IdentityVerificationReport(GetApiRequest):
     """
 
     @classmethod
-    def get_identity_verification_reports(cls, api_key=None, idempotency_key: str = None, workspace=None,
-                                          live: bool = None):
+    def get_identity_verification_reports(cls, options: IdentityVerificationReportsListOptions = None, api_key=None,
+                                          idempotency_key: str = None, workspace=None, live: bool = None):
         """
         List identity verification reports
 
+        :param options:
         :param api_key:
         :param idempotency_key:
         :param workspace:
@@ -24,6 +26,7 @@ class IdentityVerificationReport(GetApiRequest):
 
         return cls.get(
             path="/identity/verification_reports",
+            options=options,
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

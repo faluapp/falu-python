@@ -17,7 +17,7 @@ class BasicListOptions(object):
     def populate(self, values: QueryValues):
         if values is None: return
 
-        values.add("sorted", [self.sorting]) \
+        values.add("sort", [self.sorting]) \
             .add("count", self.count) \
             .add("created", QueryValues().fromRange(self.created)) \
             .add("updated", QueryValues().fromRange(self.update))
@@ -54,4 +54,96 @@ class MessageListOptions(BasicListOptions):
 
         values \
             .add("delivered", QueryValues().fromRange(self.delivered)) \
+            .add("status", self.status)
+
+
+class IdentityVerificationListOptions(BasicListOptions):
+    """
+    Options for filtering identity verifications
+    """
+
+    def __init__(self, status=None, document_type=None, customer=None):
+        super().__init__()
+        self.status = status
+        self.document_type = document_type
+        self.customer = customer
+
+    def populate(self, values: QueryValues):
+        values \
+            .add("status", self.status) \
+            .add("type", self.document_type) \
+            .add("customer", self.customer)
+
+
+class IdentityVerificationListOptions(BasicListOptions):
+    """
+    Options for filtering identity verifications
+    """
+
+    def __init__(self, status=None, document_type=None, customer=None):
+        super().__init__()
+        self.status = status
+        self.document_type = document_type
+        self.customer = customer
+
+    def populate(self, values: QueryValues):
+        values \
+            .add("status", self.status) \
+            .add("type", self.document_type) \
+            .add("customer", self.customer)
+
+
+class IdentityVerificationReportsListOptions(BasicListOptions):
+    """
+    Options for filtering identity verification reports
+    """
+
+    def __init__(self, verification=None):
+        super().__init__()
+        self.verification = verification
+
+    def populate(self, values: QueryValues):
+        values \
+            .add("verification", self.verification)
+
+
+class FileListOptions(BasicListOptions):
+    """
+    Options for filtering and pagination of list files
+    """
+
+    def __init__(self, purpose=None):
+        super().__init__()
+        self.purpose = purpose
+
+    def populate(self, values: QueryValues):
+        values \
+            .add("purpose", self.purpose)
+
+
+class FileLinksListOptions(BasicListOptions):
+    """
+    Options for filtering and pagination of list file links.
+    """
+
+    def __init__(self, file=None):
+        super().__init__()
+        self.file = file
+
+    def populate(self, values: QueryValues):
+        values \
+            .add("file", self.file)
+
+
+class TransferListOptions(BasicListOptionsWithMoney):
+    """
+    Options for filtering and pagination of transfers.
+    """
+
+    def __init__(self, status=None):
+        super().__init__()
+        self.status = status
+
+    def populate(self, values: QueryValues):
+        values \
             .add("status", self.status)

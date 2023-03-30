@@ -2,6 +2,10 @@ from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
+class FileLinkOptions:
+    pass
+
+
 class FileLink(PostApiRequest, GetApiRequest):
     """
     To share the contents of an File object with non-Falu users, you can create an FileLink.
@@ -9,10 +13,12 @@ class FileLink(PostApiRequest, GetApiRequest):
     """
 
     @classmethod
-    def get_file_links(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def get_file_links(cls, options: FileLinkOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
+                       live: bool = None):
         """
         Get file links
 
+        :param options:
         :param api_key:
         :param idempotency_key:
         :param workspace:
@@ -22,6 +28,7 @@ class FileLink(PostApiRequest, GetApiRequest):
 
         return cls.get(
             path="/file_links",
+            options=options,
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

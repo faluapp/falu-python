@@ -1,3 +1,4 @@
+from falu.basic_list_options import FileListOptions
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
@@ -10,10 +11,12 @@ class File(PostApiRequest, GetApiRequest):
     """
 
     @classmethod
-    def get_files(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def get_files(cls, options: FileListOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
+                  live: bool = None):
         """
         Get files
 
+        :param options:
         :param api_key:
         :param idempotency_key:
         :param workspace:
@@ -23,6 +26,7 @@ class File(PostApiRequest, GetApiRequest):
 
         return cls.get(
             path="/files",
+            options=options,
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

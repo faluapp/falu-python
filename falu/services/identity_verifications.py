@@ -1,3 +1,4 @@
+from falu.basic_list_options import IdentityVerificationListOptions
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
@@ -11,10 +12,12 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
     """
 
     @classmethod
-    def get_identity_verifications(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def get_identity_verifications(cls, options: IdentityVerificationListOptions = None, api_key=None,
+                                   idempotency_key: str = None, workspace=None, live: bool = None):
         """
         List identity verifications
 
+        :param options:
         :param api_key:
         :param idempotency_key:
         :param workspace:
@@ -24,6 +27,7 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
 
         return cls.get(
             path="/identity/verifications",
+            options=options,
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
