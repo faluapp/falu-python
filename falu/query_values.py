@@ -9,36 +9,38 @@ class QueryValues(object):
     """
 
     def __init__(self, values=None):
+        if values is None:
+            values = {}
         self.values = values
 
     def add(self, key, value=None):
         if value is None:
             return self
 
-        if isinstance(value, bool):
-            self.add(key, [value])
         elif isinstance(value, datetime):
-            self.add(key, [value])
-        elif isinstance(value, int):
-            self.add(key, [value])
-        elif isinstance(value, float):
-            self.add(key, [key])
+            self._add(key, [value])
+        else:
+            self._add(key, ["{}".format(value)])
         return self
 
-    def add(self, key, values):
+    def _add(self, key, values):
         if values is not None and len(values) > 0:
-            self.values.update({key, values})
+            self.values[key] = tuple(values)
         return self
 
-    def add(self, prop, other):
+    def add_query_values(self, prop, other):
         if other is None:
             return self
 
         if prop is None or len(prop) < 1:
             return self
 
-        for key, value in other.values.items():
-            self.add(prop + "." + key, value)
+        if isinstance(other, QueryValues):
+            for key, value in other.values.items():
+                if value is not None:
+                    self.add(prop + "." + key, value)
+        else:
+            return self
 
     def fromRange(self, options: RangeFilteringOptions):
         if options is not None:
@@ -47,3 +49,6 @@ class QueryValues(object):
             self.add("gt", options.greater_than)
             self.add("gte", options.greater_than_or_equal_to)
         return self
+
+    def get_keys(self):
+        return self.values.keys()

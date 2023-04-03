@@ -1,4 +1,4 @@
-from falu.basic_list_options import IdentityVerificationReportsListOptions
+from falu.list_options import IdentityVerificationReportsListOptions
 from falu.generic.get_api_request import GetApiRequest
 
 

@@ -1,7 +1,7 @@
 import requests
 from requests import Response
 
-from falu.basic_list_options import BasicListOptions
+from falu.list_options import BasicListOptions
 from falu.client.falu_model import FaluModel
 from falu.client.falu_model import deserialize_falu_response
 from falu.query_values import QueryValues

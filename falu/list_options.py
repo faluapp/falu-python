@@ -17,11 +17,10 @@ class BasicListOptions(object):
     def populate(self, values: QueryValues):
         if values is None: return
 
-        values.add("sort", [self.sorting]) \
-            .add("count", self.count) \
-            .add("created", QueryValues().fromRange(self.created)) \
-            .add("updated", QueryValues().fromRange(self.update))
-
+        values.add("sort", [self.sorting])
+        values.add("count", self.count)
+        values.add_query_values("created", QueryValues().fromRange(self.created))
+        values.add_query_values("updated", QueryValues().fromRange(self.update))
 
 class BasicListOptionsWithMoney(BasicListOptions):
     """
@@ -36,7 +35,7 @@ class BasicListOptionsWithMoney(BasicListOptions):
     def populate(self, values: QueryValues):
         super().populate(values)
 
-        values.add("currency", self.currency).add("amount", QueryValues().fromRange(self.amount))
+        values.add("currency", self.currency).add_query_values("amount", QueryValues().fromRange(self.amount))
 
 
 class MessageListOptions(BasicListOptions):
@@ -69,29 +68,10 @@ class IdentityVerificationListOptions(BasicListOptions):
         self.customer = customer
 
     def populate(self, values: QueryValues):
-        values \
-            .add("status", self.status) \
-            .add("type", self.document_type) \
-            .add("customer", self.customer)
-
-
-class IdentityVerificationListOptions(BasicListOptions):
-    """
-    Options for filtering identity verifications
-    """
-
-    def __init__(self, status=None, document_type=None, customer=None):
-        super().__init__()
-        self.status = status
-        self.document_type = document_type
-        self.customer = customer
-
-    def populate(self, values: QueryValues):
-        values \
-            .add("status", self.status) \
-            .add("type", self.document_type) \
-            .add("customer", self.customer)
-
+        super().populate(values)
+        values.add("status", self.status)
+        values.add("type", self.document_type)
+        values.add("customer", self.customer)
 
 class IdentityVerificationReportsListOptions(BasicListOptions):
     """
@@ -103,8 +83,8 @@ class IdentityVerificationReportsListOptions(BasicListOptions):
         self.verification = verification
 
     def populate(self, values: QueryValues):
-        values \
-            .add("verification", self.verification)
+        super().populate(values)
+        values.add("verification", self.verification)
 
 
 class FileListOptions(BasicListOptions):
@@ -117,8 +97,8 @@ class FileListOptions(BasicListOptions):
         self.purpose = purpose
 
     def populate(self, values: QueryValues):
-        values \
-            .add("purpose", self.purpose)
+        super().populate(values)
+        values.add("purpose", self.purpose)
 
 
 class FileLinksListOptions(BasicListOptions):
@@ -131,8 +111,8 @@ class FileLinksListOptions(BasicListOptions):
         self.file = file
 
     def populate(self, values: QueryValues):
-        values \
-            .add("file", self.file)
+        super().populate(values)
+        values.add("file", self.file)
 
 
 class TransferListOptions(BasicListOptionsWithMoney):
@@ -145,5 +125,5 @@ class TransferListOptions(BasicListOptionsWithMoney):
         self.status = status
 
     def populate(self, values: QueryValues):
-        values \
-            .add("status", self.status)
+        super().populate(values)
+        values.add("status", self.status)

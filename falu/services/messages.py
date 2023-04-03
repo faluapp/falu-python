@@ -1,4 +1,4 @@
-from falu.basic_list_options import MessageListOptions
+from falu.list_options import MessageListOptions
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
