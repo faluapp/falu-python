@@ -36,8 +36,8 @@ class ApiClient(FaluModel):
         args = QueryValues()
         if options is not None:
             options.populate(args)
-
-        return args.values.update(params)
+            return args.values.update(params)
+        return params
 
     @staticmethod
     def build_headers(key=None, idempotency_key: str = None, workspace: str = None, live: bool = None):
