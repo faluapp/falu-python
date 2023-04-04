@@ -135,3 +135,17 @@ class IdentityVerificationReportTests(unittest.TestCase):
 
         self.assertIsNotNone(resources)
         self.assertEqual(200, resp.status)
+
+    @responses.activate
+    def test_getting_verification_report_works(self):
+        resp = responses.get(
+            "{}/identity/verification_reports/{}".format(self.base_url, "idvr_0O5fS0eelr0FuJhJBcNeTDuWqE3"),
+            json=self.report, status=200
+        )
+        responses.add(resp)
+
+        resource = falu.IdentityVerificationReport.get_identity_verification_report(
+            report="idvr_0O5fS0eelr0FuJhJBcNeTDuWqE3")
+
+        self.assertIsNotNone(resource)
+        self.assertEqual("idvr_0O5fS0eelr0FuJhJBcNeTDuWqE3", resource.id)

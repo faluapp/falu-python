@@ -38,6 +38,7 @@ class IdentityVerificationReport(GetApiRequest):
         """
         List identity verification reports
 
+        :param report:
         :param api_key:
         :param idempotency_key:
         :param workspace:
