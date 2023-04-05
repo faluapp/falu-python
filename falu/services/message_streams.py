@@ -1,3 +1,5 @@
+import json
+
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
@@ -38,7 +40,7 @@ class MessageStream(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
         return cls.create(
             path="/message_streams",
-            data=data,
+            data=json.dumps(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -57,7 +59,7 @@ class MessageStream(PostApiRequest, GetApiRequest, DeleteApiRequest):
         :param live:
         :return:
         """
-        return cls.create(
+        return cls.get(
             path="/message_streams/{stream}".format(stream=stream),
             api_key=api_key,
             idempotency_key=idempotency_key,
