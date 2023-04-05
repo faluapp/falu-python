@@ -1,6 +1,8 @@
-from falu.list_options import IdentityVerificationListOptions
+import json
+
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
+from falu.list_options import IdentityVerificationListOptions
 
 
 class IdentityVerification(PostApiRequest, GetApiRequest):
@@ -47,8 +49,8 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
         :return:
         """
         return cls.create(
-            path="/message_templates",
-            data=data,
+            path="/identity/verifications",
+            data=json.dumps(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -69,7 +71,7 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
         """
 
         return cls.get(
-            path=f"/identity/verifications{verification}".format(verification=verification),
+            path=f"/identity/verifications/{verification}".format(verification=verification),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -107,7 +109,7 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
         """
 
         return cls.create(
-            path=f"/identity/verifications{verification}/cancel".format(verification=verification),
+            path=f"/identity/verifications/{verification}/cancel".format(verification=verification),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -136,7 +138,7 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
         """
 
         return cls.create(
-            path=f"/identity/verifications{verification}/cancel".format(verification=verification),
+            path=f"/identity/verifications/{verification}/redact".format(verification=verification),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
