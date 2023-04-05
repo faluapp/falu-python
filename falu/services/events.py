@@ -41,6 +41,7 @@ class Event(PostApiRequest, GetApiRequest):
         """
         Get event
 
+        :param event:
         :param api_key:
         :param idempotency_key:
         :param workspace:
