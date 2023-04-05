@@ -1,9 +1,8 @@
+import json
+
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
-
-
-class FileLinkOptions:
-    pass
+from falu.list_options import BasicListOptions
 
 
 class FileLink(PostApiRequest, GetApiRequest):
@@ -13,7 +12,7 @@ class FileLink(PostApiRequest, GetApiRequest):
     """
 
     @classmethod
-    def get_file_links(cls, options: FileLinkOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
+    def get_file_links(cls, options: BasicListOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
                        live: bool = None):
         """
         Get file links
@@ -35,7 +34,7 @@ class FileLink(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def create_file_links(cls, data, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def create_file_link(cls, data, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Create file links
 
@@ -49,7 +48,7 @@ class FileLink(PostApiRequest, GetApiRequest):
 
         return cls.create(
             path="/file_links",
-            data=data,
+            data=json.dumps(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -68,8 +67,8 @@ class FileLink(PostApiRequest, GetApiRequest):
         :return:
         """
 
-        return cls.create(
-            path="/file_links/{link}".format(link=link),
+        return cls.get(
+            path=f"/file_links/{link}".format(link=link),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
