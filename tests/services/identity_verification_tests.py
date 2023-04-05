@@ -158,7 +158,7 @@ class IdentityVerificationTests(unittest.TestCase):
         self.assertEqual(200, resp.status)
 
     @responses.activate
-    def test_cancel_identity_verification_works(self):
+    def test_redact_identity_verification_works(self):
         resp = responses.post(
             "{}/identity/verifications/{}/redact".format(self.base_url, "idv_0O5fS0eelr0FuJhJBcNeTDuWqE3"),
             json=self.identity_verification,
