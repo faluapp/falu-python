@@ -100,7 +100,7 @@ class File(PostApiRequest, GetApiRequest):
         :return:
         """
         return cls.create(
-            path="/files/{file}".format(file=file),
+            path="/files/{file}/redact".format(file=file),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
