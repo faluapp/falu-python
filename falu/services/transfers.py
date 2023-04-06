@@ -1,6 +1,6 @@
-from falu.list_options import TransferListOptions
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
+from falu.list_options import TransferListOptions
 
 
 class Transfer(PostApiRequest, GetApiRequest):
@@ -9,7 +9,7 @@ class Transfer(PostApiRequest, GetApiRequest):
     """
 
     @classmethod
-    def get_transfer(cls, options: TransferListOptions = None, api_key=None, idempotency_key: str = None,
+    def get_transfers(cls, options: TransferListOptions = None, api_key=None, idempotency_key: str = None,
                      workspace=None, live: bool = None):
         """
         List transfers
@@ -45,7 +45,7 @@ class Transfer(PostApiRequest, GetApiRequest):
 
         return cls.create(
             path="/transfers",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
