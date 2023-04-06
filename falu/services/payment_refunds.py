@@ -46,7 +46,7 @@ class PaymentRefund(PostApiRequest, GetApiRequest):
         return cls.create(
             path="/payment_refunds",
             api_key=api_key,
-            data=data,
+            data=cls.serialize(data),
             idempotency_key=idempotency_key,
             workspace=workspace,
             live=live)
