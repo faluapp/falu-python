@@ -42,7 +42,7 @@ class TerminalConfiguration(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path="/terminals/configurations",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
