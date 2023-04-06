@@ -1,11 +1,13 @@
-from falu.generic.post_api_request import PostApiRequest
-from falu.generic.get_api_request import GetApiRequest
+import json
+
 from falu.generic.delete_api_request import DeleteApiRequest
+from falu.generic.get_api_request import GetApiRequest
+from falu.generic.post_api_request import PostApiRequest
 
 
 class MessageSuppressions(PostApiRequest, GetApiRequest, DeleteApiRequest):
     """
-        A MessageSuppression object allows you to manage the phone number destinations that are not currently active for sending to.
+    A MessageSuppression object allows you to manage the phone number destinations that are not currently active for sending to.
     """
 
     @classmethod
@@ -41,7 +43,7 @@ class MessageSuppressions(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
         return cls.create(
             path="/message_suppressions",
-            data=data,
+            data=json.dumps(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
