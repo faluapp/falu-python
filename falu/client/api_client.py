@@ -1,9 +1,11 @@
+import json
+
 import requests
 from requests import Response
 
-from falu.list_options import BasicListOptions
 from falu.client.falu_model import FaluModel
 from falu.client.falu_model import deserialize_falu_response
+from falu.list_options import BasicListOptions
 from falu.query_values import QueryValues
 
 
@@ -80,3 +82,7 @@ class ApiClient(FaluModel):
     @staticmethod
     def deserialize_response(code, headers, resource):
         return deserialize_falu_response(code, headers, resource)
+
+    @classmethod
+    def serialize(cls, data: dict):
+        return json.dumps(data)
