@@ -42,7 +42,7 @@ class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path="/terminals/devices",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -62,7 +62,7 @@ class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.get(
-            path=f"/terminals/devices{device}",
+            path=f"/terminals/devices/{device}",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -98,7 +98,7 @@ class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.delete(
-            path=f"/terminals/devices{device}",
+            path=f"/terminals/devices/{device}",
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -120,7 +120,8 @@ class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
 
         return cls.create(
-            path=f"/terminals/devices{device}",
+            path=f"/terminals/devices/{device}/process_visit",
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
