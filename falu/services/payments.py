@@ -50,6 +50,27 @@ class Payment(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
+    def create_payment(cls, data, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+        """
+        Create a payment
+
+        :param data:
+        :param api_key:
+        :param idempotency_key:
+        :param workspace:
+        :param live:
+        :return:
+        """
+
+        return cls.create(
+            path="/payments",
+            data=cls.serialize(data),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
+
+    @classmethod
     def update_payment(cls, payment, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Update a payment
