@@ -42,7 +42,7 @@ class MessageTemplates(PostApiRequest, GetApiRequest, DeleteApiRequest):
         """
         return cls.create(
             path="/message_templates",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -122,8 +122,8 @@ class MessageTemplates(PostApiRequest, GetApiRequest, DeleteApiRequest):
           :return:
         """
         return cls.create(
-            path="/message_templates",
-            data=data,
+            path="/message_templates/validate",
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
