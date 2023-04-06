@@ -43,7 +43,7 @@ class MessageTemplateTests(unittest.TestCase):
             "body": "Your OTP code is: {{otp}}"
         }
 
-        resp = responses.post("{}/message_templates".format(self.base_url), json=[self.template],
+        resp = responses.post("{}/message_templates".format(self.base_url), json=self.template,
                               match=[matchers.json_params_matcher(request)], status=200)
         responses.add(resp)
 

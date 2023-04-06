@@ -82,7 +82,7 @@ class PaymentAuthorization(PostApiRequest, GetApiRequest):
         return cls.create(
             path=f"/payments_authorizations/{payment_authorization}/approve".format(
                 payment_authorization=payment_authorization),
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -106,7 +106,7 @@ class PaymentAuthorization(PostApiRequest, GetApiRequest):
         return cls.create(
             path=f"/payments_authorizations/{payment_authorization}/decline".format(
                 payment_authorization=payment_authorization),
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
