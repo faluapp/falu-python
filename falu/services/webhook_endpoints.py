@@ -1,7 +1,7 @@
-from falu.list_options import BasicListOptions
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.post_api_request import PostApiRequest
+from falu.list_options import BasicListOptions
 
 
 class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
@@ -11,8 +11,9 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
     """
 
     @classmethod
-    def get_webhooks(cls, options: BasicListOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
-                     live: bool = None):
+    def get_webhook_endpoints(cls, options: BasicListOptions = None, api_key=None, idempotency_key: str = None,
+                              workspace=None,
+                              live: bool = None):
         """
         List webhook endpoints
 
@@ -33,7 +34,8 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def create_webhook(cls, data, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def create_webhook_endpoint(cls, data, api_key=None, idempotency_key: str = None, workspace=None,
+                                live: bool = None):
         """
         Create webhook endpoint
 
@@ -47,15 +49,15 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path="/webhooks/endpoint",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
             live=live)
 
     @classmethod
-    def get_webhook(cls, webhook_endpoint, api_key=None, idempotency_key: str = None, workspace=None,
-                    live: bool = None):
+    def get_webhook_endpoint(cls, webhook_endpoint, api_key=None, idempotency_key: str = None, workspace=None,
+                             live: bool = None):
         """
         Get webhook endpoint
 
@@ -90,8 +92,8 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
         pass
 
     @classmethod
-    def delete_webhook(cls, webhook_endpoint, api_key=None, idempotency_key: str = None, workspace=None,
-                       live: bool = None):
+    def delete_webhook_endpoint(cls, webhook_endpoint, api_key=None, idempotency_key: str = None, workspace=None,
+                                live: bool = None):
         """
         Get webhook endpoint
 
@@ -111,7 +113,7 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def roll_webhook(cls, webhook_endpoint, data, api_key=None, idempotency_key: str = None, workspace=None,
+    def roll_webhook_endpoint(cls, webhook_endpoint, data, api_key=None, idempotency_key: str = None, workspace=None,
                      live: bool = None):
         """
         Roll a webhook endpoint secret
@@ -127,7 +129,7 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path=f"/webhooks/endpoint/{webhook_endpoint}".format(webhook_endpoint=webhook_endpoint),
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
