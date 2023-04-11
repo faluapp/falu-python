@@ -42,7 +42,7 @@ class Visitor(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path="/visits/visitors",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
