@@ -42,7 +42,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path="/visits/visits",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -98,7 +98,7 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path=f"/visits/visits/{visit}/start",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -120,20 +120,18 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path=f"/visits/visits/{visit}/end",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
             live=live)
 
-
     @classmethod
-    def redact_visit(cls, visit, data, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def redact_visit(cls, visit, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Redact visit
 
         :param visit:
-        :param data:
         :param api_key:
         :param idempotency_key:
         :param workspace:
@@ -143,7 +141,6 @@ class Visit(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path=f"/visits/visits/{visit}/redact",
-            data=data,
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
