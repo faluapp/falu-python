@@ -1,8 +1,10 @@
-from falu.generic.post_api_request import PostApiRequest
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
+from falu.generic.post_api_request import PostApiRequest
 
 
-class MessageBatch(PostApiRequest, GetApiRequest):
+class MessageBatch(PostApiRequest, GetApiRequest, PatchApiRequest):
 
     @classmethod
     def send_bulk_messages(cls, data: dict, api_key=None, idempotency_key: str = None, workspace=None,
@@ -20,6 +22,7 @@ class MessageBatch(PostApiRequest, GetApiRequest):
         """
         return cls.create(
             path="/message_batches",
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -63,11 +66,12 @@ class MessageBatch(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def update_message_batch(cls, batch_id, api_key=None, idempotency_key: str = None, workspace=None,
-                             live: bool = None):
+    def update_message_batch(cls, batch_id, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                             workspace=None, live: bool = None):
         """
         Retrieve a message batch
 
+        :param document:
         :param batch_id:
         :param api_key:
         :param idempotency_key:
@@ -75,7 +79,13 @@ class MessageBatch(PostApiRequest, GetApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path="/message_batches/{batch_id}".format(batch_id=batch_id),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def get_status(cls, batch_id, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):

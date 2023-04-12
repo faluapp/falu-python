@@ -5,6 +5,7 @@ import responses
 from responses import matchers
 
 import falu
+from falu.client.json_patch_document import JsonPatchDocument
 
 
 class FileLinkTests(unittest.TestCase):
@@ -54,6 +55,25 @@ class FileLinkTests(unittest.TestCase):
         responses.add(resp)
 
         resource = falu.FileLink.create_file_link(data=request)
+
+        self.assertIsNotNone(resource)
+        self.assertEqual(200, resp.status)
+
+    @responses.activate
+    def test_updating_file_link_works(self):
+        document = JsonPatchDocument()
+        document.replace("/expires", "2023-04-05T07:32:02Z")
+
+        resp = responses.patch(
+            "{}/file_links/{}".format(self.base_url, "flnk_0O5fS0eelr0FuJhJBcNeTDuWqE3"),
+            json=self.file_link,
+            match=[matchers.json_params_matcher(document.operations)],
+            status=200
+        )
+
+        responses.add(resp)
+
+        resource = falu.FileLink.update_file_link(link="flnk_0O5fS0eelr0FuJhJBcNeTDuWqE3", document=document)
 
         self.assertIsNotNone(resource)
         self.assertEqual(200, resp.status)

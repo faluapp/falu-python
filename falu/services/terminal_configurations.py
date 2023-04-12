@@ -1,9 +1,11 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class TerminalConfiguration(PostApiRequest, GetApiRequest, DeleteApiRequest):
+class TerminalConfiguration(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
     """
     A TerminalConfiguration object represents how features should be configured for terminal devices.
     """
@@ -69,10 +71,12 @@ class TerminalConfiguration(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_configuration(cls, config, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def update_configuration(cls, config, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                             workspace=None, live: bool = None):
         """
         Update terminal configuration
 
+        :param document:
         :param config:
         :param api_key:
         :param idempotency_key:
@@ -80,7 +84,13 @@ class TerminalConfiguration(PostApiRequest, GetApiRequest, DeleteApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/terminals/configurations/{config}",
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def delete_configuration(cls, config, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):

@@ -1,8 +1,10 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class Payment(PostApiRequest, GetApiRequest):
+class Payment(PostApiRequest, GetApiRequest, PatchApiRequest):
     """
     To initiate a payment from a customer, you create a Payment object.
     You can retrieve and refund individual payments as well as a list all payments.
@@ -71,10 +73,12 @@ class Payment(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def update_payment(cls, payment, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def update_payment(cls, payment, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                       workspace=None, live: bool = None):
         """
         Update a payment
 
+        :param document:
         :param payment:
         :param api_key:
         :param idempotency_key:
@@ -82,4 +86,10 @@ class Payment(PostApiRequest, GetApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/payments/{payment}".format(payment=payment),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)

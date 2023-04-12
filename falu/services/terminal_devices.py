@@ -1,9 +1,11 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
+class TerminalDevice(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
     """
     A TerminalDevice represents a physical device for performing identity verifications.
     """
@@ -69,11 +71,12 @@ class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_terminal_device(cls, device, api_key=None, idempotency_key: str = None, workspace=None,
-                               live: bool = None):
+    def update_terminal_device(cls, device, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                               workspace=None, live: bool = None):
         """
         Update terminal devices
 
+        :param document:
         :param device:
         :param api_key:
         :param idempotency_key:
@@ -81,7 +84,13 @@ class TerminalDevice(PostApiRequest, GetApiRequest, DeleteApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/terminals/devices/{device}",
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def delete_terminal_device(cls, device, api_key=None, idempotency_key: str = None, workspace=None,

@@ -1,9 +1,11 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class VisitorDestination(PostApiRequest, GetApiRequest, DeleteApiRequest):
+class VisitorDestination(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
     """
     A VisitorDestination object represents a destination for visitors.
     """
@@ -69,11 +71,12 @@ class VisitorDestination(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_destination(cls, destination, api_key=None, idempotency_key: str = None, workspace=None,
-                           live: bool = None):
+    def update_destination(cls, destination, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                           workspace=None, live: bool = None):
         """
         Update destination
 
+        :param document:
         :param destination:
         :param api_key:
         :param idempotency_key:
@@ -81,7 +84,13 @@ class VisitorDestination(PostApiRequest, GetApiRequest, DeleteApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/visits/destinations/{destination}",
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def delete_destination(cls, destination, api_key=None, idempotency_key: str = None, workspace=None,

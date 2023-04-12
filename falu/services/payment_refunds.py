@@ -1,8 +1,10 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class PaymentRefund(PostApiRequest, GetApiRequest):
+class PaymentRefund(PostApiRequest, GetApiRequest, PatchApiRequest):
     """
     PaymentRefund object allows you to refund a payment that has been previously been created but not yet refunded.
     Funds will be refunded to the payment instrument that was originally charged.
@@ -73,11 +75,12 @@ class PaymentRefund(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def update_payment_refund(cls, refund, api_key=None, idempotency_key: str = None, workspace=None,
-                              live: bool = None):
+    def update_payment_refund(cls, refund, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                              workspace=None, live: bool = None):
         """
         Update a payment refund
 
+        :param document:
         :param refund:
         :param api_key:
         :param idempotency_key:
@@ -85,4 +88,10 @@ class PaymentRefund(PostApiRequest, GetApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/payment_refunds/{refund}".format(refund=refund),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)

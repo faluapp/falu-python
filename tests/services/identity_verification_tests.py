@@ -4,6 +4,7 @@ import responses
 from responses import matchers
 
 import falu
+from falu.client.json_patch_document import JsonPatchDocument
 
 
 class IdentityVerificationTests(unittest.TestCase):
@@ -125,6 +126,26 @@ class IdentityVerificationTests(unittest.TestCase):
         responses.add(resp)
 
         resource = falu.IdentityVerification.create_identity_verification(data=request)
+
+        self.assertIsNotNone(resource)
+        self.assertEqual(200, resp.status)
+
+    @responses.activate
+    def test_updating_identity_verifications_works(self):
+        document = JsonPatchDocument()
+        document.replace("/description", "This is for my reference")
+
+        resp = responses.patch(
+            "{}/identity/verifications/{}".format(self.base_url, "idv_0O5fS0eelr0FuJhJBcNeTDuWqE3"),
+            json=self.identity_verification,
+            match=[matchers.json_params_matcher(document.operations)],
+            status=200
+        )
+        responses.add(resp)
+
+        resource = falu.IdentityVerification.update_identity_verification(
+            verification="idv_0O5fS0eelr0FuJhJBcNeTDuWqE3", document=document
+        )
 
         self.assertIsNotNone(resource)
         self.assertEqual(200, resp.status)

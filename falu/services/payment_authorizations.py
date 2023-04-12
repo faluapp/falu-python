@@ -1,8 +1,10 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class PaymentAuthorization(PostApiRequest, GetApiRequest):
+class PaymentAuthorization(PostApiRequest, GetApiRequest, PatchApiRequest):
     """
     When a payment provider supports customer initiated payments and a customer initiates a payment, a Payment Authorization object is created.
     Authorizations must be approved for the payment to be completed successfully.
@@ -50,11 +52,12 @@ class PaymentAuthorization(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def update_payment_authorization(cls, payment_authorization, api_key=None, idempotency_key: str = None,
-                                     workspace=None, live: bool = None):
+    def update_payment_authorization(cls, payment_authorization, document: JsonPatchDocument, api_key=None,
+                                     idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Update a payment authorization
 
+        :param document:
         :param payment_authorization:
         :param api_key:
         :param idempotency_key:
@@ -62,7 +65,14 @@ class PaymentAuthorization(PostApiRequest, GetApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/payments_authorizations/{payment_authorization}".format(
+                payment_authorization=payment_authorization),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def approve_payment_authorization(cls, payment_authorization, data=None, api_key=None, idempotency_key: str = None,

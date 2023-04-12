@@ -1,9 +1,11 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest):
+class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest, PatchApiRequest):
     """
     This object represents a customer of your business.
     It lets you track payments, transfers, and messages that belong to the same customer.
@@ -43,7 +45,7 @@ class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest):
 
         return cls.create(
             path="/customers",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
@@ -70,10 +72,12 @@ class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_customer(cls, customer, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def update_customer(cls, customer, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                        workspace=None, live: bool = None):
         """
         Update customer
 
+        :param document:
         :param customer:
         :param api_key:
         :param idempotency_key:
@@ -81,7 +85,13 @@ class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path="/customers/{customer}".format(customer=customer),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def delete_customer(cls, customer, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):

@@ -1,9 +1,11 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class MessageTemplates(PostApiRequest, GetApiRequest, DeleteApiRequest):
+class MessageTemplates(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
     """
      Deleting a suppression allows you to resume sending messages to the given destination.
      Suppression with spam_complaint reason cannot be deleted.
@@ -69,11 +71,12 @@ class MessageTemplates(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_message_template(cls, template, api_key=None, idempotency_key: str = None, workspace=None,
-                                live: bool = None):
+    def update_message_template(cls, template, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                                workspace=None, live: bool = None):
         """
           Update message template
 
+          :param document:
           :param template:
           :param api_key:
           :param idempotency_key:
@@ -81,8 +84,9 @@ class MessageTemplates(PostApiRequest, GetApiRequest, DeleteApiRequest):
           :param live:
           :return:
         """
-        return cls.get(  # update
+        return cls.patch(
             path=f"/message_templates/{template}".format(template=template),
+            data=cls.serialize(document.operations),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

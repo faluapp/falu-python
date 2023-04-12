@@ -1,11 +1,13 @@
 import json
 
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 from falu.list_options import IdentityVerificationListOptions
 
 
-class IdentityVerification(PostApiRequest, GetApiRequest):
+class IdentityVerification(PostApiRequest, GetApiRequest, PatchApiRequest):
     """
     An IdentityVerification guides you through the process of collecting and verifying the identities of your users.
     It contains details such as what verification check to perform. Only create one IdentityVerification for each verification in your system.
@@ -78,11 +80,12 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def update_identity_verification(cls, verification, api_key=None, idempotency_key: str = None, workspace=None,
-                                     live: bool = None):
+    def update_identity_verification(cls, verification, document: JsonPatchDocument, api_key=None,
+                                     idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Update an identity verification
 
+        :param document:
         :param verification:
         :param api_key:
         :param idempotency_key:
@@ -90,7 +93,13 @@ class IdentityVerification(PostApiRequest, GetApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path=f"/identity/verifications/{verification}".format(verification=verification),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def cancel_identity_verification(cls, verification, api_key=None, idempotency_key: str = None, workspace=None,

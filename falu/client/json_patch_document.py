@@ -19,14 +19,6 @@ class JsonPatchDocument(object):
         self.operations.append(ReplaceOperation(path=path, value=value).__dict__)
         return self
 
-    def move(self, path: str, _from):
-        self.operations.append(MoveOperation(path=path, _from=_from).__dict__)
-        return self
-
-    def copy(self, path: str, _from):
-        self.operations.append(CopyOperation(path=path, _from=_from).__dict__)
-        return self
-
     def get_operations(self):
         return self.operations
 
@@ -42,21 +34,6 @@ class AddOperation(PathOperation):
         super().__init__("add")
         self.path = path
         self.value = value
-
-
-class CopyOperation(PathOperation):
-    def __init__(self, path: str, _from):
-        super().__init__("copy")
-        self.path = path
-        self._from = _from
-
-
-class MoveOperation(PathOperation):
-    def __init__(self, path: str, _from):
-        super().__init__("move")
-        self.path = path
-        self._from = _from
-
 
 class RemoveOperation(PathOperation):
     def __init__(self, path: str):

@@ -1,11 +1,13 @@
 import json
 
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 
 
-class MessageStream(PostApiRequest, GetApiRequest, DeleteApiRequest):
+class MessageStream(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
 
     @classmethod
     def get_message_streams(cls, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
@@ -67,11 +69,12 @@ class MessageStream(PostApiRequest, GetApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_message_stream(cls, stream, api_key=None, idempotency_key: str = None, workspace=None,
-                              live: bool = None):
+    def update_message_stream(cls, stream, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                              workspace=None, live: bool = None):
         """
         Update message stream
 
+        :param document:
         :param stream:
         :param api_key:
         :param idempotency_key:
@@ -79,7 +82,13 @@ class MessageStream(PostApiRequest, GetApiRequest, DeleteApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path="/message_streams/{stream}".format(stream=stream),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def delete_message_stream(cls, stream, api_key=None, idempotency_key: str = None, workspace=None,

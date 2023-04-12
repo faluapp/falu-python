@@ -1,9 +1,11 @@
+from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
+from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
 from falu.list_options import MessageListOptions
 
 
-class Messages(PostApiRequest, GetApiRequest):
+class Messages(PostApiRequest, GetApiRequest, PatchApiRequest):
 
     @classmethod
     def get_messages(cls, options: MessageListOptions = None, api_key=None, idempotency_key: str = None, workspace=None,
@@ -66,10 +68,12 @@ class Messages(PostApiRequest, GetApiRequest):
             live=live)
 
     @classmethod
-    def update_message(cls, message_id, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
+    def update_message(cls, message_id, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+                       workspace=None, live: bool = None):
         """
         Update message
 
+        :param document:
         :param message_id:
         :param api_key:
         :param idempotency_key:
@@ -77,7 +81,13 @@ class Messages(PostApiRequest, GetApiRequest):
         :param live:
         :return:
         """
-        pass
+        return cls.patch(
+            path="/messages/{message_id}".format(message_id=message_id),
+            data=cls.serialize(document.operations),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            workspace=workspace,
+            live=live)
 
     @classmethod
     def cancel_message(cls, message_id, api_key=None, idempotency_key: str = None, workspace=None, live: bool = None):
