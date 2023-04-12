@@ -1,8 +1,10 @@
 import json
+import platform
 
 import requests
 from requests import Response
 
+from falu import version
 from falu.client.falu_model import FaluModel
 from falu.client.falu_model import deserialize_falu_response
 from falu.list_options import BasicListOptions
@@ -25,7 +27,8 @@ class ApiClient(FaluModel):
                 params=None):
 
         url = self._build_url(path)
-        headers = self.build_headers(key=key, idempotency_key=idempotency_key, workspace=workspace, live=live)
+        headers = self.build_headers(key=key, method=method, idempotency_key=idempotency_key, workspace=workspace,
+                                     live=live)
 
         response = requests.request(method=method, url=url, headers=headers, data=data, params=params)
         return self.response_handler(response)
@@ -42,7 +45,7 @@ class ApiClient(FaluModel):
         return params
 
     @staticmethod
-    def build_headers(key=None, idempotency_key: str = None, workspace: str = None, live: bool = None):
+    def build_headers(key=None, method=None, idempotency_key: str = None, workspace: str = None, live: bool = None):
         if key:
             api_key = key
         else:
@@ -53,12 +56,23 @@ class ApiClient(FaluModel):
             pass
             # TODO: raise error
 
+        user_agent = "falu-python/{version}; (Python {lang_version};{platform}; system ({system};{node};{release};{machine}))".format(
+            version=version.VERSION, lang_version=platform.python_version(), platform=platform.platform(),
+            system=platform.system(),
+            node=platform.node(),
+            release=platform.release(),
+            machine=platform.machine()
+        )
+
         headers = {
             "Authorization": "Bearer %s" % api_key,
             "X-Falu-Version": "2022-09-01",
-            'Content-type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'User-Agent': user_agent
         }
+
+        if method == "POST":
+            headers['Content-type'] = 'application/json'
 
         if idempotency_key is not None:
             headers['X-Idempotency-Key'] = idempotency_key
