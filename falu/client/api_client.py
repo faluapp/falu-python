@@ -4,6 +4,7 @@ import platform
 import requests
 from requests import Response
 
+from falu import errors
 from falu import version
 from falu.client.falu_model import FaluModel
 from falu.client.falu_model import deserialize_falu_response
@@ -53,8 +54,11 @@ class ApiClient(FaluModel):
             api_key = api_key
 
         if api_key is None:
-            pass
-            # TODO: raise error
+            raise errors.AuthenticationError(
+                "API Key is required!\n"
+                "(Hint: define your api key 'falu.api_key = <KEY>')\n"
+                "For more details see https://falu.io"
+            )
 
         user_agent = "falu-python/{version}; (Python {lang_version};{platform}; system ({system};{node};{release};{machine}))".format(
             version=version.VERSION, lang_version=platform.python_version(), platform=platform.platform(),
@@ -87,15 +91,29 @@ class ApiClient(FaluModel):
     def response_handler(self, response: Response):
         code = response.status_code
         resource = None
+        error = None
 
-        if response and response.content:
-            resource = response.json()
+        if response is not None:
+            if code == 401:
+                error = errors.AuthenticationError(message=response.reason, status_code=code)
 
-        return self.deserialize_response(code, response.headers, resource)
+            if code == 400 and response.content:
+                problem = response.json()
+                error = errors.ApiError(message=problem["detail"], status_code=code, problem=problem)
+
+            if code in [200, 201, 204] and response.content:
+                resource = response.json()
+        else:
+            raise errors.ApiConnectionError("IOException during API request to {url}. " +
+                                            "Please check your internet connection and try again. " +
+                                            "If this problem persists, let us know at support@falu.io."
+                                            .format(url=response.url))
+
+        return self._response_handler(code, response.headers, resource, error)
 
     @staticmethod
-    def deserialize_response(code, headers, resource):
-        return deserialize_falu_response(code, headers, resource)
+    def _response_handler(code, headers, resource, error):
+        return deserialize_falu_response(code, headers, resource), error
 
     @classmethod
     def serialize(cls, data: dict):

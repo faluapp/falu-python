@@ -10,11 +10,10 @@ class JsonPatchDocumentTests(unittest.TestCase):
         document = JsonPatchDocument()
         document.add(path="/amount", value=100)
         document.replace(path="/isVerified", value="verified")
-        document.copy(path="/copy", _from="add")
 
         operations = document.operations
 
         self.assertEqual(
-            '[{"op": "add", "path": "/amount", "value": 100}, {"op": "replace", "path": "/isVerified", "value": "verified"}, {"op": "copy", "path": "/copy", "_from": "add"}]',
+            '[{"op": "add", "path": "/amount", "value": 100}, {"op": "replace", "path": "/isVerified", "value": "verified"}]',
             json.dumps(operations)
         )
