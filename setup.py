@@ -12,6 +12,8 @@ setup(
     name='falu',
     version=version["VERSION"],
     description='The official Falu Python library',
+    long_description=open("long_description.rst").read(),
+    long_description_content_type="text/x-rst",
     url='https://github.com/tinglesoftware/falu-python',
     author='Falu',
     author_email='info@tingle.software',

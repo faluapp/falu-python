@@ -1,0 +1,95 @@
+name: Build and Publish
+
+on:
+  push:
+    tags:
+      - '*'
+    paths-ignore: # do not trigger for changes:
+      - README.md
+      - LICENSE
+      - CHANGELOG.md
+      - docs/**
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required for GitVersion
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0
+        with:
+          useConfigFile: true
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install tools
+        run: make venv
+
+      - name: Build and check package
+        run: |
+          source venv/bin/activate
+          python setup.py clean --all sdist bdist_wheel --universal
+          python -m twine check dist/*
+        env:
+          VERSION_NAME: ${{ steps.gitversion.outputs.semVer }}
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required for GitVersion
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0
+        with:
+          useConfigFile: true
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install tools
+        run: make venv
+
+      - name: Publish packages to PyPy
+        run: |
+          export VERSION=${{ steps.gitversion.outputs.semVer }}
+          python -m twine upload dist/*
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
