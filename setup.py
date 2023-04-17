@@ -1,4 +1,12 @@
+import os
+
 from setuptools import setup, find_packages
+
+locale = os.path.abspath(os.path.dirname(__file__))
+
+version_contents = {}
+with open(os.path.join(locale, "falu", "version.py"), encoding="utf-8") as f:
+    exec(f.read(), version_contents)
 
 setup(
     name='falu',
