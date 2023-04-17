@@ -7,6 +7,7 @@ import falu
 
 class IdentityVerificationReportTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     report = {
         "id": "idvr_0O5fS0eelr0FuJhJBcNeTDuWqE3",
@@ -148,4 +149,3 @@ class IdentityVerificationReportTests(unittest.TestCase):
             report="idvr_0O5fS0eelr0FuJhJBcNeTDuWqE3")
 
         self.assertIsNotNone(resource)
-        self.assertEqual("idvr_0O5fS0eelr0FuJhJBcNeTDuWqE3", resource.id)

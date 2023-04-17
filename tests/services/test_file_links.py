@@ -10,6 +10,7 @@ from falu.client.json_patch_document import JsonPatchDocument
 
 class FileLinkTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     file_link = {
         "metadata": {

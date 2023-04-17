@@ -8,6 +8,7 @@ import falu
 
 class MessageSuppressionTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     suppression = {
         "id": "msup_0O5fS0eelr0FuJhJBcNeTDuWqE3",

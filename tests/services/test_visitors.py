@@ -8,6 +8,7 @@ import falu
 
 class VisitorTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     visitor = {
         "phones": [

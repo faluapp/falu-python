@@ -1,26 +1,39 @@
+import os
+
 from setuptools import setup, find_packages
+
+locale = os.path.abspath(os.path.dirname(__file__))
+
+version = {}
+with open(os.path.join(locale, "falu", "version.py"), encoding="utf-8") as f:
+    exec(f.read(), version)
 
 setup(
     name='falu',
-    version='1.0.0',
-    description='A example Python package',
-    url='https://github.com/tinglesoftware/falu-java',
+    version=version["VERSION"],
+    description='The official Falu Python library',
+    long_description=open("long_description.rst").read(),
+    long_description_content_type="text/x-rst",
+    url='https://github.com/tinglesoftware/falu-python',
     author='Falu',
     author_email='info@tingle.software',
     keywords=["falu api payments"],
     zip_safe=False,
     license='MIT',
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
+    python_requires=">=3.7",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    install_requires=['requests', 'responses', ],
+    install_requires=[
+        "pytest>=7.0.0",
+        'requests >= 2.20; python_version >= "3.0"',
+        'responses >=0.23',
+        "urllib3 == 1.26.14"
+    ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",

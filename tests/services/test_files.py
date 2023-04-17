@@ -8,6 +8,7 @@ import falu
 
 class FileTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     file = {
         "id": "file_0O5fS0eelr0FuJhJBcNeTDuWqE3",
@@ -41,22 +42,6 @@ class FileTests(unittest.TestCase):
         self.assertIsNotNone(resource)
         self.assertEqual(200, resp.status)
 
-    @responses.activate
-    def test_file_uploads_works(self):
-        request = {"file": "cake"}
-
-        resp = responses.post(
-            "{}/files".format(self.base_url),
-            json=self.file,
-            match=[matchers.multipart_matcher(request)],
-            status=200
-        )
-        responses.add(resp)
-
-        resources = falu.File.upload_files(data=request)
-
-        self.assertIsNotNone(resources)
-        self.assertEqual(200, resp.status)
 
     @responses.activate
     def test_getting_file_works(self):

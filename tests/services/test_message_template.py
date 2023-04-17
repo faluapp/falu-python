@@ -8,6 +8,7 @@ import falu
 
 class MessageTemplateTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     template = {
         "alias": "otp-v2",

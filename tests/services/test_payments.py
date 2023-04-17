@@ -8,6 +8,7 @@ import falu
 
 class PaymentTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     payment = {
         "description": "This is for my reference",

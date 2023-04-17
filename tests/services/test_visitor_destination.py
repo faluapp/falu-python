@@ -8,6 +8,7 @@ import falu
 
 class VisitorDestinationTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     destination = {
         "name": "KIMANI AND CO. ADVOCATES (Suite 3B)",

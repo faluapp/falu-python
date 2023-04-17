@@ -8,6 +8,7 @@ import falu
 
 class TerminalConfigurationTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     config = {
         "description": "This is for my reference",

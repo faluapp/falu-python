@@ -8,6 +8,7 @@ import falu
 
 class MessageStreamTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     stream = {
         "description": "This is for my reference",
@@ -45,7 +46,7 @@ class MessageStreamTests(unittest.TestCase):
         }
 
         resp = responses.post(
-            "/message_streams".format(self.base_url),
+            "{}/message_streams".format(self.base_url),
             json=self.stream,
             match=[matchers.json_params_matcher(request)],
             status=200

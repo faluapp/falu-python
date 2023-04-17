@@ -7,6 +7,7 @@ import falu
 
 class WalletTransactionTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     transaction = {
         "id": "wtxn_0O5fS0eelr0FuJhJBcNeTDuWqE3",

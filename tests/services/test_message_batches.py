@@ -7,6 +7,7 @@ import falu
 
 class MessageBatchesTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     batch = {
         "description": "This is for my reference",
