@@ -46,7 +46,7 @@ class TransferReversal(PostApiRequest, GetApiRequest, PatchApiRequest):
 
         return cls.create(
             path="/transfer_reversal",
-            data=data,
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

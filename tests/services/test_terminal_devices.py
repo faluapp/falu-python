@@ -8,6 +8,7 @@ import falu
 
 class TerminalDevicesTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     device = {
         "label": "Anne's Hand-held",

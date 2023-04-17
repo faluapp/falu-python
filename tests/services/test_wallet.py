@@ -7,6 +7,7 @@ import falu
 
 class WalletTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     wallet = {
         "created": "2023-04-11T05:35:10Z",

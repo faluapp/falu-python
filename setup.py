@@ -21,8 +21,9 @@ setup(
     python_requires=">=3.7",
     packages=find_packages(exclude=["tests", "tests.*"]),
     install_requires=[
+        "pytest>=7.0.0",
         'requests >= 2.20; python_version >= "3.0"',
-        'responses >=0.23; python_version >= "3.7"',
+        'responses >=0.23',
         "urllib3 == 1.26.14"
     ],
     classifiers=[

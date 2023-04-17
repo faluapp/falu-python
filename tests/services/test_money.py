@@ -7,6 +7,7 @@ import falu
 
 class MoneyTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     money = {
         "created": "2023-04-06T06:59:43Z",

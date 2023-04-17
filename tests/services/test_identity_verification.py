@@ -9,6 +9,7 @@ from falu.client.json_patch_document import JsonPatchDocument
 
 class IdentityVerificationTests(unittest.TestCase):
     base_url = "https://api.falu.io/v1"
+    falu.api_key = "fkst_1234"
 
     identity_verification = {
         "description": "This is for my reference",
