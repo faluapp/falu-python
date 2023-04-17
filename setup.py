@@ -20,7 +20,11 @@ setup(
     license='MIT',
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    install_requires=['requests', 'responses', ],
+    install_requires=[
+        'requests >= 2.20; python_version >= "3.0"',
+        'responses >=0.23; python_version >= "3.7"',
+        "urllib3 == 1.26.14"
+    ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
