@@ -4,7 +4,7 @@
 
 # Falu Python
 
-The official Falu Python library, supporting Python 2.7+.
+The official Falu Python library, supporting Python 3.7+.
 
 ## Installation
 
@@ -22,7 +22,7 @@ python setup.py install
 
 ## Requirements
 
-- Python 2.7+ or Python 3.6+
+- Python 3.7+
 
 ## Documentation
 
