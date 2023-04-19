@@ -24,3 +24,4 @@ from falu.services.visits import Visit
 from falu.services.wallet import Wallet
 from falu.services.wallet_transactions import WalletTransaction
 from falu.services.webhook_endpoints import WebhookEndpoint
+from falu.services.temporary_keys import TemporaryKey
