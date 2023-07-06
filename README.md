@@ -77,6 +77,6 @@ the [LICENSE](./LICENSE) file for more information.
 
 [api-docs]: https://docs.falu.io/api?lang=python
 
-[issues]: https://github.com/tingle/falu-python/issues/new
+[issues]: https://github.com/faluapp/falu-python/issues/new
 
-[pulls]: https://github.com/tingle/falu-python/pulls
+[pulls]: https://github.com/faluapp/falu-python/pulls
