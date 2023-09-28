@@ -1,5 +1,4 @@
 import json
-import platform
 
 import requests
 from requests import Response
@@ -60,13 +59,7 @@ class ApiClient(FaluModel):
                 "For more details see https://falu.io"
             )
 
-        user_agent = "falu-python/{version}; (Python {lang_version};{platform}; system ({system};{node};{release};{machine}))".format(
-            version=version.VERSION, lang_version=platform.python_version(), platform=platform.platform(),
-            system=platform.system(),
-            node=platform.node(),
-            release=platform.release(),
-            machine=platform.machine()
-        )
+        user_agent = "falu-python/{version}".format(version=version.VERSION)
 
         headers = {
             "Authorization": "Bearer %s" % api_key,
