@@ -26,7 +26,7 @@ setup(
         "pytest>=7.0.0",
         'requests >= 2.20; python_version >= "3.0"',
         'responses >=0.23',
-        "urllib3 == 1.26.14",
+        "urllib3 == 2.2.0",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
