@@ -5,18 +5,18 @@
 
 version: 2
 updates:
-- package-ecosystem: "pip" # See documentation for possible values
-  directory: "/" # Location of package manifests
-  schedule:
-    interval: "weekly"
-  reviewers:
-    - SecyWecy
-    - mburumaxwell
-- package-ecosystem: "github-actions" # See documentation for possible values
-  directory: "/" # Location of package manifests
-  schedule:
-    interval: "weekly"
-    time: "02:00"
-  reviewers:
-    - SecyWecy
-    - mburumaxwell
+  - package-ecosystem: "pip" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - sethonyango
+      - mburumaxwell
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      time: "02:00"
+    reviewers:
+      - sethonyango
+      - mburumaxwell
