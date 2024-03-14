@@ -1,7 +1,6 @@
 import unittest
 
 import responses
-from responses import matchers
 
 import falu
 

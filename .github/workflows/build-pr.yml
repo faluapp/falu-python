@@ -48,7 +48,15 @@ jobs:
       - name: Install Falu
         run: python setup.py install
 
-      - name: Test with pytest
+      - name: 'pytest'
         run: |
-          pytest
+          pip install pytest pytest-cov
+          pytest --junitxml=junit/test-results.xml --cov=falu --cov-report=xml --cov-report=html
 
+      - name: Publish pytest results
+        uses: pmeier/pytest-results-action@v0.6.0
+        with:
+            retention-days: 1
+            path: 'junit/test-results.xml'
+            title: 'Test results falu'
+            summary: true
