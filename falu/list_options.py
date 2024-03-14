@@ -15,7 +15,8 @@ class BasicListOptions(object):
         self.update = update
 
     def populate(self, values: QueryValues):
-        if values is None: return
+        if values is None:
+            return
 
         values.add("sort", [self.sorting])
         values.add("count", self.count)

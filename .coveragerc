@@ -1,0 +1,11 @@
+[paths]
+source =
+    falu
+
+[run]
+branch = true
+parallel = true
+source = stripe
+
+[coverage:report]
+skip_empty = true

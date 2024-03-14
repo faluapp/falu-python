@@ -37,7 +37,7 @@ class WalletTransactionTests(unittest.TestCase):
         self.assertEqual(200, resp.status)
 
     @responses.activate
-    def test_getting_wallet_transactions_works(self):
+    def test_getting_wallet_transaction_works(self):
         resp = responses.get("{}/wallet_transactions/{}".format(self.base_url, "wtxn_0O5fS0eelr0FuJhJBcNeTDuWqE3"),
                              json=self.transaction, status=200)
         responses.add(resp)

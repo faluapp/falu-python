@@ -64,8 +64,13 @@ MANIFEST
 # Local
 *.box
 .env
-.env
 .venv
 env/
 venv/
 .vagrant
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+
+# Junit test result
+**/junit/**.xml
