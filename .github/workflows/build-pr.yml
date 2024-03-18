@@ -56,7 +56,6 @@ jobs:
       - name: Publish pytest results
         uses: pmeier/pytest-results-action@v0.6.0
         with:
-            retention-days: 1
-            path: 'junit/test-results.xml'
-            title: 'Test results falu'
-            summary: true
+          path: 'junit/test-results.xml'
+          title: 'Test results falu'
+          summary: true
