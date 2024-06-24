@@ -133,19 +133,20 @@ class IdentityVerificationTests(unittest.TestCase):
 
     @responses.activate
     def test_updating_identity_verifications_works(self):
-        document = JsonPatchDocument()
-        document.replace("/description", "This is for my reference")
+        request = {
+            "description": "This is for my reference"
+        }
 
         resp = responses.patch(
             "{}/identity/verifications/{}".format(self.base_url, "idv_0O5fS0eelr0FuJhJBcNeTDuWqE3"),
             json=self.identity_verification,
-            match=[matchers.json_params_matcher(document.operations)],
+            match=[matchers.json_params_matcher(request)],
             status=200
         )
         responses.add(resp)
 
         resource = falu.IdentityVerification.update_identity_verification(
-            verification="idv_0O5fS0eelr0FuJhJBcNeTDuWqE3", document=document
+            verification="idv_0O5fS0eelr0FuJhJBcNeTDuWqE3", data=request
         )
 
         self.assertIsNotNone(resource)

@@ -69,12 +69,12 @@ class MessageStream(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiReq
             live=live)
 
     @classmethod
-    def update_message_stream(cls, stream, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_message_stream(cls, stream, data: dict, api_key=None, idempotency_key: str = None,
                               workspace=None, live: bool = None):
         """
         Update message stream
 
-        :param document:
+        :param data:
         :param stream:
         :param api_key:
         :param idempotency_key:
@@ -84,7 +84,7 @@ class MessageStream(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiReq
         """
         return cls.patch(
             path="/message_streams/{stream}".format(stream=stream),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

@@ -77,12 +77,12 @@ class FileLink(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_file_link(cls, link, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_file_link(cls, link, data: dict, api_key=None, idempotency_key: str = None,
                          workspace=None, live: bool = None):
         """
         Update file links
 
-        :param document:
+        :param data:
         :param link:
         :param api_key:
         :param idempotency_key:
@@ -92,7 +92,7 @@ class FileLink(PostApiRequest, GetApiRequest, PatchApiRequest):
         """
         return cls.patch(
             path=f"/file_links/{link}".format(link=link),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

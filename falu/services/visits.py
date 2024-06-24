@@ -71,12 +71,12 @@ class Visit(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
             live=live)
 
     @classmethod
-    def update_visit(cls, visit, document: JsonPatchDocument, api_key=None, idempotency_key: str = None, workspace=None,
+    def update_visit(cls, visit, data: dict, api_key=None, idempotency_key: str = None, workspace=None,
                      live: bool = None):
         """
         Update a visit
 
-        :param document:
+        :param data:
         :param visit:
         :param api_key:
         :param idempotency_key:
@@ -86,7 +86,7 @@ class Visit(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRequest):
         """
         return cls.patch(
             path=f"/visits/visits/{visit}",
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

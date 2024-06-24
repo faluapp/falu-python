@@ -52,12 +52,12 @@ class PaymentAuthorization(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_payment_authorization(cls, payment_authorization, document: JsonPatchDocument, api_key=None,
+    def update_payment_authorization(cls, payment_authorization, data: dict, api_key=None,
                                      idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Update a payment authorization
 
-        :param document:
+        :param data:
         :param payment_authorization:
         :param api_key:
         :param idempotency_key:
@@ -68,7 +68,7 @@ class PaymentAuthorization(PostApiRequest, GetApiRequest, PatchApiRequest):
         return cls.patch(
             path=f"/payments_authorizations/{payment_authorization}".format(
                 payment_authorization=payment_authorization),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

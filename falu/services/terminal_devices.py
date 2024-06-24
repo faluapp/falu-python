@@ -71,12 +71,12 @@ class TerminalDevice(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRe
             live=live)
 
     @classmethod
-    def update_terminal_device(cls, device, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_terminal_device(cls, device, data: dict, api_key=None, idempotency_key: str = None,
                                workspace=None, live: bool = None):
         """
         Update terminal devices
 
-        :param document:
+        :param data:
         :param device:
         :param api_key:
         :param idempotency_key:
@@ -86,7 +86,7 @@ class TerminalDevice(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiRe
         """
         return cls.patch(
             path=f"/terminals/devices/{device}",
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

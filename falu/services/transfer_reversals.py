@@ -74,12 +74,12 @@ class TransferReversal(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_transfer_reversal(cls, reversal, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_transfer_reversal(cls, reversal, data: dict, api_key=None, idempotency_key: str = None,
                                  workspace=None, live: bool = None):
         """
         Update transfer reversal
 
-        :param document:
+        :param data:
         :param reversal:
         :param api_key:
         :param idempotency_key:
@@ -89,7 +89,7 @@ class TransferReversal(PostApiRequest, GetApiRequest, PatchApiRequest):
         """
         return cls.patch(
             path="/transfer_reversal/{reversal}".format(reversal=reversal),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

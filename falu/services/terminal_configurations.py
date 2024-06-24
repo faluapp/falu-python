@@ -71,12 +71,12 @@ class TerminalConfiguration(PostApiRequest, GetApiRequest, PatchApiRequest, Dele
             live=live)
 
     @classmethod
-    def update_configuration(cls, config, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_configuration(cls, config, data: dict, api_key=None, idempotency_key: str = None,
                              workspace=None, live: bool = None):
         """
         Update terminal configuration
 
-        :param document:
+        :param data:
         :param config:
         :param api_key:
         :param idempotency_key:
@@ -86,7 +86,7 @@ class TerminalConfiguration(PostApiRequest, GetApiRequest, PatchApiRequest, Dele
         """
         return cls.patch(
             path=f"/terminals/configurations/{config}",
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
