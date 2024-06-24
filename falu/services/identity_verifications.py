@@ -1,6 +1,5 @@
 import json
 
-from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.patch_api_request import PatchApiRequest
 from falu.generic.post_api_request import PostApiRequest
@@ -80,12 +79,12 @@ class IdentityVerification(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_identity_verification(cls, verification, document: JsonPatchDocument, api_key=None,
+    def update_identity_verification(cls, verification, data: dict, api_key=None,
                                      idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Update an identity verification
 
-        :param document:
+        :param data:
         :param verification:
         :param api_key:
         :param idempotency_key:
@@ -95,7 +94,7 @@ class IdentityVerification(PostApiRequest, GetApiRequest, PatchApiRequest):
         """
         return cls.patch(
             path=f"/identity/verifications/{verification}".format(verification=verification),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

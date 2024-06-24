@@ -68,7 +68,7 @@ class PaymentTests(unittest.TestCase):
         self.assertEqual(200, resp.status)
 
     @responses.activate
-    def test_create_message_suppression_works(self):
+    def test_create_payment_works(self):
         request = {
             "amount": 1000,
             "currency": "kes",

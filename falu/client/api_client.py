@@ -18,17 +18,17 @@ class ApiClient(FaluModel):
 
     @classmethod
     def _execute(cls, method, path, data=None, options: BasicListOptions = None, key=None, idempotency_key: str = None,
-                 workspace=None, live: bool = None, params=None):
+                 workspace=None, live: bool = None, params=None, media_type: str = 'application/json'):
         params = cls._generate_params(options, params)
         client = ApiClient()
-        return client.execute(method, path, data, key, idempotency_key, workspace, live, params)
+        return client.execute(method, path, data, key, idempotency_key, workspace, live, params, media_type)
 
     def execute(self, method, path, data=None, key=None, idempotency_key: str = None, workspace=None, live: bool = None,
-                params=None):
+                params=None, media_type=None):
 
         url = self._build_url(path)
         headers = self.build_headers(key=key, method=method, idempotency_key=idempotency_key, workspace=workspace,
-                                     live=live)
+                                     live=live, media_type=media_type)
 
         response = requests.request(method=method, url=url, headers=headers, data=data, params=params)
         return self.response_handler(response)
@@ -45,7 +45,8 @@ class ApiClient(FaluModel):
         return params
 
     @staticmethod
-    def build_headers(key=None, method=None, idempotency_key: str = None, workspace: str = None, live: bool = None):
+    def build_headers(key=None, method=None, idempotency_key: str = None, workspace: str = None, live: bool = None,
+                      media_type=None):
         if key:
             api_key = key
         else:
@@ -63,8 +64,8 @@ class ApiClient(FaluModel):
 
         headers = {
             "Authorization": "Bearer %s" % api_key,
-            "X-Falu-Version": "2022-09-01",
-            'Accept': 'application/json',
+            "X-Falu-Version": "2024-06-01",
+            'Accept': media_type,
             'User-Agent': user_agent
         }
 

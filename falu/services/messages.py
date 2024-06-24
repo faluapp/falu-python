@@ -68,12 +68,12 @@ class Messages(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_message(cls, message_id, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_message(cls, message_id, data: dict, api_key=None, idempotency_key: str = None,
                        workspace=None, live: bool = None):
         """
         Update message
 
-        :param document:
+        :param data:
         :param message_id:
         :param api_key:
         :param idempotency_key:
@@ -83,7 +83,7 @@ class Messages(PostApiRequest, GetApiRequest, PatchApiRequest):
         """
         return cls.patch(
             path="/messages/{message_id}".format(message_id=message_id),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

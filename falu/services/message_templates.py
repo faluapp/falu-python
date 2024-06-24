@@ -71,12 +71,12 @@ class MessageTemplates(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApi
             live=live)
 
     @classmethod
-    def update_message_template(cls, template, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_message_template(cls, template, data: dict, api_key=None, idempotency_key: str = None,
                                 workspace=None, live: bool = None):
         """
           Update message template
 
-          :param document:
+          :param data:
           :param template:
           :param api_key:
           :param idempotency_key:
@@ -86,7 +86,7 @@ class MessageTemplates(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApi
         """
         return cls.patch(
             path=f"/message_templates/{template}".format(template=template),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

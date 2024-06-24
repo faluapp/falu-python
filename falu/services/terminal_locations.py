@@ -73,12 +73,12 @@ class TerminalLocation(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApi
             live=live)
 
     @classmethod
-    def update_terminal_location(cls, terminal_location, document: JsonPatchDocument, api_key=None,
+    def update_terminal_location(cls, terminal_location, data: dict, api_key=None,
                                  idempotency_key: str = None, workspace=None, live: bool = None):
         """
         Update terminal location
 
-        :param document:
+        :param data:
         :param terminal_location:
         :param api_key:
         :param idempotency_key:
@@ -88,7 +88,7 @@ class TerminalLocation(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApi
         """
         return cls.patch(
             path=f"/terminals/locations/{terminal_location}",
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

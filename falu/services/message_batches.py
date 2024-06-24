@@ -66,12 +66,12 @@ class MessageBatch(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_message_batch(cls, batch_id, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_message_batch(cls, batch_id, data: dict, api_key=None, idempotency_key: str = None,
                              workspace=None, live: bool = None):
         """
         Retrieve a message batch
 
-        :param document:
+        :param data:
         :param batch_id:
         :param api_key:
         :param idempotency_key:
@@ -81,7 +81,7 @@ class MessageBatch(PostApiRequest, GetApiRequest, PatchApiRequest):
         """
         return cls.patch(
             path="/message_batches/{batch_id}".format(batch_id=batch_id),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

@@ -79,12 +79,12 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiR
             live=live)
 
     @classmethod
-    def update_webhook(cls, webhook_endpoint, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_webhook(cls, webhook_endpoint, data: dict, api_key=None, idempotency_key: str = None,
                        workspace=None, live: bool = None):
         """
         Update webhook endpoint
 
-        :param document:
+        :param data:
         :param webhook_endpoint:
         :param api_key:
         :param idempotency_key:
@@ -94,7 +94,7 @@ class WebhookEndpoint(PostApiRequest, GetApiRequest, PatchApiRequest, DeleteApiR
         """
         return cls.patch(
             path=f"/webhooks/endpoint/{webhook_endpoint}".format(webhook_endpoint=webhook_endpoint),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

@@ -75,12 +75,12 @@ class PaymentRefund(PostApiRequest, GetApiRequest, PatchApiRequest):
             live=live)
 
     @classmethod
-    def update_payment_refund(cls, refund, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_payment_refund(cls, refund, data: dict, api_key=None, idempotency_key: str = None,
                               workspace=None, live: bool = None):
         """
         Update a payment refund
 
-        :param document:
+        :param data:
         :param refund:
         :param api_key:
         :param idempotency_key:
@@ -90,7 +90,7 @@ class PaymentRefund(PostApiRequest, GetApiRequest, PatchApiRequest):
         """
         return cls.patch(
             path=f"/payment_refunds/{refund}".format(refund=refund),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,
