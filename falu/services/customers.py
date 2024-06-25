@@ -1,4 +1,3 @@
-from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.patch_api_request import PatchApiRequest
@@ -72,12 +71,12 @@ class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest, PatchApiRequest)
             live=live)
 
     @classmethod
-    def update_customer(cls, customer, document: JsonPatchDocument, api_key=None, idempotency_key: str = None,
+    def update_customer(cls, customer, data: dict, api_key=None, idempotency_key: str = None,
                         workspace=None, live: bool = None):
         """
         Update customer
 
-        :param document:
+        :param data:
         :param customer:
         :param api_key:
         :param idempotency_key:
@@ -87,7 +86,7 @@ class Customer(PostApiRequest, GetApiRequest, DeleteApiRequest, PatchApiRequest)
         """
         return cls.patch(
             path="/customers/{customer}".format(customer=customer),
-            data=cls.serialize(document.operations),
+            data=cls.serialize(data),
             api_key=api_key,
             idempotency_key=idempotency_key,
             workspace=workspace,

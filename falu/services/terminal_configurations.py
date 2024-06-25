@@ -1,4 +1,3 @@
-from falu.client.json_patch_document import JsonPatchDocument
 from falu.generic.delete_api_request import DeleteApiRequest
 from falu.generic.get_api_request import GetApiRequest
 from falu.generic.patch_api_request import PatchApiRequest

@@ -4,7 +4,6 @@ import responses
 from responses import matchers
 
 import falu
-from falu.client.json_patch_document import JsonPatchDocument
 
 
 class IdentityVerificationTests(unittest.TestCase):
