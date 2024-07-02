@@ -62,7 +62,7 @@ class FileLinkTests(unittest.TestCase):
     @responses.activate
     def test_updating_file_link_works(self):
         request = {
-            "/expires": "2023-04-05T07:32:02Z"
+            "expires": "2023-04-05T07:32:02Z"
         }
 
         resp = responses.patch(
