@@ -46,6 +46,7 @@ class File(PostApiRequest, GetApiRequest):
         """
 
         return cls.create(
+            base_url='https://files.falu.io/v1',
             path="/files",
             data=data,
             api_key=api_key,

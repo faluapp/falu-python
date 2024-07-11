@@ -17,24 +17,26 @@ class ApiClient(FaluModel):
         self.base_url = 'https://api.falu.io/v1'
 
     @classmethod
-    def _execute(cls, method, path, data=None, options: BasicListOptions = None, key=None, idempotency_key: str = None,
-                 workspace=None, live: bool = None, params=None, media_type: str = 'application/json'):
+    def _execute(cls, method, base_url=None, path=None, data=None, options: BasicListOptions = None, key=None,
+                 idempotency_key: str = None, workspace=None, live: bool = None, params=None,
+                 media_type: str = 'application/json'):
         params = cls._generate_params(options, params)
         client = ApiClient()
-        return client.execute(method, path, data, key, idempotency_key, workspace, live, params, media_type)
+        return client.execute(method, base_url, path, data, key, idempotency_key, workspace, live, params, media_type)
 
-    def execute(self, method, path, data=None, key=None, idempotency_key: str = None, workspace=None, live: bool = None,
-                params=None, media_type=None):
+    def execute(self, method, base_url=None, path=None, data=None, key=None, idempotency_key: str = None,
+                workspace=None, live: bool = None, params=None, media_type=None):
 
-        url = self._build_url(path)
+        url = self._build_url(base_url, path)
         headers = self.build_headers(key=key, method=method, idempotency_key=idempotency_key, workspace=workspace,
                                      live=live, media_type=media_type)
 
         response = requests.request(method=method, url=url, headers=headers, data=data, params=params)
         return self.response_handler(response)
 
-    def _build_url(self, path):
-        return "%s%s" % (self.base_url, path)
+    def _build_url(self, base_url, path):
+        base_url = base_url if base_url else self.base_url
+        return "%s%s" % (base_url, path)
 
     @staticmethod
     def _generate_params(options: BasicListOptions = None, params=None):
