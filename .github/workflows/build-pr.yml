@@ -53,7 +53,7 @@ jobs:
           pytest --junitxml=junit/test-results.xml --cov=falu --cov-report=xml --cov-report=html
 
       - name: Publish pytest results
-        uses: pmeier/pytest-results-action@v0.6.0
+        uses: pmeier/pytest-results-action@v0.7.1
         with:
           path: 'junit/test-results.xml'
           title: 'Test results falu'
